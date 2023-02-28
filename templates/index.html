@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="container my-3">
+    <form action="/" method="POST">
+        <h3>Add To Do List</h3>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Task</label>
+            <input type="text" class="form-control" name="title" id="exampleFormControlInput1" placeholder="My Tasks">
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Discription</label>
+            <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3"
+                placeholder="My Description"></textarea>
+        </div>
+        <button type="submit" class="btn btn-outline-dark">Add</button>
+    </form>
+</div>
+
+
+<div class="container my-3">
+    <h3>Your To Do List</h3>
+    {% if allTodo|length == 0 %}
+    <div class="alert alert-warning" role="alert">
+        Your Todo list is empty!! Please add a task first.
+    </div>
+    {% else %}
+    <table class="table">
+        <thead>
+
+            <tr>
+                <th scope="col">Serial</th>
+                <th scope="col">Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">Update/Delete</th>
+            </tr>
+            {% endif %}
+        </thead>
+        <tbody>
+            {% for todo in allTodo %}
+            <tr>
+                <th scope="row">{{loop.index}}</th>
+                <td>{{todo.title}}</td>
+                <td>{{todo.description}}</td>
+                <td>
+                    <a href="/update/{{todo.sno}}" type="button" class="btn btn-outline-success">Update</a>
+                    <a href="/delete/{{todo.sno}}" type="button" class="btn btn-outline-danger">Delete</a>
+                </td>
+            </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+{% endblock body %}
